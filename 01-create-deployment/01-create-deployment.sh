@@ -7,4 +7,8 @@ docker build -t ${IMAGE} -f kub-action-01-starting-setup/Dockerfile ./kub-action
 
 kubectl create deployment first-app --image=${IMAGE}
 
+kubectl get deployments
+
+kubectl get deployments
+
 docker rmi ${IMAGE}
