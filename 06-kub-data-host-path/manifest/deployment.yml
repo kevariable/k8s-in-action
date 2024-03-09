@@ -17,8 +17,7 @@ spec:
     spec:
       containers:
         - name: story
-          image: kevariable/kub-data-demo
-          imagePullPolicy: Always
+          image: k8s/kub-data-demo:dev # workaround for local images with :dev tag
           volumeMounts:
             - mountPath: /app/story
               name: story-volume
