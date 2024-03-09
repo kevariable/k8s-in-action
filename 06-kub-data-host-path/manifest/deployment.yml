@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: story-deployment
+spec:
+  selector:
+    matchExpressions: # for fun 😋
+      - key: app
+        operator: In
+        values:
+          - story
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: story
+    spec:
+      containers:
+        - name: story
+          image: kevariable/kub-data-demo
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /app/story
+              name: story-volume
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      volumes:
+        - name: story-volume
+          hostPath:
+            type: DirectoryOrCreate
+            path: /data
