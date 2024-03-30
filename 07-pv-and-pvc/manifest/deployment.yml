@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: story-deployment
+spec:
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - story
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: story
+    spec:
+      containers:
+        - name: backend
+          image: k8s/pv-and-pvc:dev
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: story
+              mountPath: /app/story
+      volumes:
+        - name: story
+          persistentVolumeClaim:
+            claimName: pvc001
